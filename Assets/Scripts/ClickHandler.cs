@@ -1,35 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class ClickHandler : MonoBehaviour
+public class ClickHandler : MonoBehaviour, IPointerClickHandler
 {
-    private int clickCount = 0;
-    private MeshRenderer render;
+    Animator animator;
 
-    public float soilMoisture = 0;
+    GameObject eventSystem;
 
+    public GameObject dialog;
 
+    //int currentId = 0;
+    //List<string> animations = new List<string>() {"Idle", "Walk", "Run", "Eat", "Turn Head" };
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        dialog.SetActive(true);
+
+        eventSystem.GetComponent<VideoSpawner>().objectsToRemove.Add(this.gameObject);
+    }
 
     void Start()
     {
-        Debug.Log("StartMessage");
-        render = GetComponent<MeshRenderer>();
-    }
+        animator = GetComponent<Animator>();
 
-    void Update()
-    {
-    }
+        animator.SetBool("Eat", true);
 
-    void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
+        eventSystem = GameObject.Find("EventSystem");
 
-            Color color = new Color(Random.Range(0, 255)/255f, Random.Range(0, 255)/255f, Random.Range(0, 255)/255f);
-            render.material.color = color;
-            ++clickCount;
-        }
+        dialog = Resources
+        .FindObjectsOfTypeAll<GameObject>()
+        .FirstOrDefault(g => g.CompareTag("dialog"));
     }
 }
