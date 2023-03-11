@@ -10,13 +10,17 @@ public class Node : MonoBehaviour
 
     public Node parentNode;
 
-    public bool isCreated;
-
-    public Node(Vector3 position, string nodeName, Node parentNode, bool isCreated)
+    public Node(Vector3 position, string nodeName, Node parentNode)
     {
         this.position = position;
         this.nodeName = nodeName;
         this.parentNode = parentNode;
-        this.isCreated = isCreated;
+    }
+
+    public void ChangeData(Vector3 position, string nodeName, Node parentNode)
+    {
+        this.position = position;
+        this.nodeName = nodeName;
+        this.parentNode = parentNode;
     }
 }

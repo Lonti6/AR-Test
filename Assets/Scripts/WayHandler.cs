@@ -6,7 +6,7 @@ public class WayHandler : MonoBehaviour
     int totalNodes = 0;
 
     Node startNode;
-    Node previousMarkerNode;
+    Node previousNode;
 
     List<Node> nodesList = new List<Node>();
 
@@ -14,34 +14,29 @@ public class WayHandler : MonoBehaviour
 
     void Start()
     {
-        startNode = new Node(Camera.main.transform.position, "startNode", null, false);
-        previousMarkerNode = startNode;
+        startNode = new Node(Camera.main.transform.position, "startNode", null);
         nodesList.Add(startNode);
+        previousNode = startNode;
     }
 
     void Update()
     {
-        Node currentNode = new Node(Camera.main.transform.position, "node_" + totalNodes++, startNode, false);
 
-        if (Vector3.Distance(currentNode.position, previousMarkerNode.position) > 1)
+        Vector3 currentPosition = Camera.main.transform.position;
+
+        if (Vector3.Distance(currentPosition, previousNode.position) > 1)
         {
+            //спавним узел пути
+            GameObject nodeObject = Instantiate(arrowPrefab, currentPosition, Quaternion.identity);
+            nodeObject.transform.LookAt(previousNode.position);
+
+            //цепл€ем на него компонент узла
+            Node currentNode = nodeObject.AddComponent(typeof(Node)) as Node;
+
+            currentNode.ChangeData(Camera.main.transform.position, "node_" + totalNodes++, startNode);
             nodesList.Add(currentNode);
-            previousMarkerNode = currentNode;
+
+            previousNode = currentNode;
         }
-
-        Node previousNode = startNode;
-
-        nodesList.ForEach(node =>
-        {
-            if (!node.isCreated)
-            {
-                GameObject nodeCurrent = Instantiate(arrowPrefab, node.position, Quaternion.identity);
-
-                nodeCurrent.transform.LookAt(previousNode.position);
-
-                node.isCreated = true;
-                previousNode = node;
-            }
-        });
     }
 }
