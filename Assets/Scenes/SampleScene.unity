@@ -1275,6 +1275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 1021843727216254516, guid: 684afd092f4981a4b9b4652d40f0a13c, type: 3}
+  keyPointPrefab: {fileID: 8184486708026576313, guid: caf794196a42fac45a627ee9bf55be29, type: 3}
 --- !u!1 &1828601335
 GameObject:
   m_ObjectHideFlags: 0
