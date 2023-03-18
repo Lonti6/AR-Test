@@ -75,10 +75,4 @@ public class CreateImage : MonoBehaviour
         System.IO.File.WriteAllBytes(currentTime, byteArray);
         return currentTime;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
