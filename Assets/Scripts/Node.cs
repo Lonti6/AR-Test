@@ -1,39 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Node: MonoBehaviour
+public class Node
 {
+    static int counter = 1;
+
     public Vector3 position;
 
-    public string nodeName;
+    public string nodeTag;
 
-    public Node parentNode;
-    public Node childNode;
-
-    public bool isKeyNode;
-
-    public TextMeshPro textMeshPro;
-
-    private void Start()
+    public Node()
     {
         this.position = Camera.main.transform.position;
-        this.isKeyNode = false;
-    }
-
-    public void ChangeData(Vector3 position, string nodeName, Node parentNode)
-    {
-        this.position = position;
-        this.nodeName = nodeName;
-        this.parentNode = parentNode;
-    }
-
-    public void ChangeData(Node node)
-    {
-        this.position = node.position;
-        this.nodeName = node.nodeName;
-        this.parentNode = node.parentNode;
+        this.nodeTag = (counter++).ToString();
     }
 }

@@ -1,4 +1,6 @@
+using Assets.Scripts;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -16,15 +18,32 @@ public class MoveHandler : MonoBehaviour
 
     private Node previousNode;
 
+    string waysFileName = "NodesWay.xml";
+
     private void Start()
     {
         textMeshPro = textObject.GetComponent<TextMeshProUGUI>();
+
+        var tmpNodes = Utils.ReadXmlFile<Node>(waysFileName);
+
+        Instantiate(this.startObject, tmpNodes[0].position, Quaternion.identity);
+        previousNode = tmpNodes[0];
+
+        for (int i = 1; i < tmpNodes.Count; i++)
+        {
+            var tmpNode = tmpNodes[i];
+
+            var obj = Instantiate(this.arrowObject, tmpNode.position, Quaternion.identity);
+            obj.transform.LookAt(previousNode.position);
+
+            previousNode = tmpNode;
+        }
+
     }
 
     void Update()
     {
         Vector3 cameraPosition = Camera.main.transform.position;
-
 
         textMeshPro.text = cameraPosition.ToString();
 
@@ -34,7 +53,7 @@ public class MoveHandler : MonoBehaviour
 
             obj.transform.LookAt(previousNode.position);
 
-            Node node = obj.GetComponent<Node>();
+            Node node = new Node();
 
             previousNode = node;
 
@@ -47,21 +66,18 @@ public class MoveHandler : MonoBehaviour
 
         if (nodes != null)
         {
-
+            Utils.WriteToXmlFile<Node>(nodes, waysFileName);
             nodes = null;
 
             return;
         }
 
         nodes = new List<Node>();
+        Node node = new Node();
 
-        GameObject startObject = Instantiate(this.startObject, Camera.main.transform.position, Quaternion.identity);
-
-        Node node = startObject.GetComponent<Node>();
-
+        Instantiate(this.startObject, node.position, Quaternion.identity);
 
         previousNode = node;
-
         nodes.Add(previousNode);
     }
 }
