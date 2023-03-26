@@ -15,7 +15,7 @@ namespace Assets.Scripts
                 fileName = DateTime.Now.ToString();
             }
             
-            var path = Application.persistentDataPath + "/" + fileName;
+            var path = Application.persistentDataPath + "/" + fileName + ".xml";
             
             using(StreamWriter streamWriter = new StreamWriter(path))
             {
@@ -31,7 +31,7 @@ namespace Assets.Scripts
 
         public static List<T> ReadXmlFile<T>(string fileName)
         {
-            var path = Application.persistentDataPath + "/" + fileName;
+            var path = Application.persistentDataPath + "/" + fileName + ".xml";
 
             using (Stream reader = new FileStream(path, FileMode.Open))
             {

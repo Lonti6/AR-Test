@@ -18,7 +18,7 @@ public class MoveHandler : MonoBehaviour
 
     private Node previousNode;
 
-    string waysFileName = "NodesWay.xml";
+    string waysFileName = "NodesWay";
 
     private void Start()
     {
