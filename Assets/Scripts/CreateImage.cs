@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Vuforia;
 
@@ -84,11 +82,5 @@ public class CreateImage : MonoBehaviour
         Debug.Log("save file " + currentTime);
         System.IO.File.WriteAllBytes(currentTime, byteArray);
         return currentTime;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
