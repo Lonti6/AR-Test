@@ -10,6 +10,8 @@ public class CreateImage : MonoBehaviour
 
     public Camera camera;
 
+    public GameObject pointPrefub;
+
     private ImageTargetBehaviour behaviour;
     // Start is called before the first frame update
     void Start()
@@ -17,6 +19,14 @@ public class CreateImage : MonoBehaviour
         
         
         // behaviour.SetWidth();
+    }
+
+    public void CreatePoint()
+    {
+        var position = camera.transform.position;
+        
+        GameObject point = Instantiate(pointPrefub, position, Quaternion.identity);
+        
     }
 
     public void AddNewObj()
