@@ -11,12 +11,8 @@ public class CreateImage : MonoBehaviour
     public GameObject pointPrefub;
 
     private ImageTargetBehaviour behaviour;
-    // Start is called before the first frame update
     void Start()
     {
-        
-        
-        // behaviour.SetWidth();
     }
 
     public void CreatePoint()
