@@ -1093,6 +1093,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefub: {fileID: 7250644711862740532, guid: b198fc8ba990923499a365dad62160a3, type: 3}
   camera: {fileID: 1282831069}
+  pointPrefub: {fileID: 8949449048925297453, guid: 90f9480f1f036104ab73c65b8b7dbbce, type: 3}
 --- !u!1 &1456900655
 GameObject:
   m_ObjectHideFlags: 0

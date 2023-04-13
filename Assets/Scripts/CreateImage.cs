@@ -6,13 +6,16 @@ public class CreateImage : MonoBehaviour
 {
     public GameObject prefub;
 
-    public Camera camera;
+    private Camera camera;
+
 
     public GameObject pointPrefub;
 
     private ImageTargetBehaviour behaviour;
     void Start()
     {
+        camera = Camera.main;
+
     }
 
     public void CreatePoint()
