@@ -1,5 +1,13 @@
 {
-    "dependencies": {
+  "scopedRegistries": [
+    {
+      "name": "iBicha",
+      "url": "https://registry.npmjs.com",
+      "scopes": [ "com.ibicha" ]
+    }
+  ],
+  "dependencies": {
+    "com.ibicha.youtube-player": "2.0.2",
     "com.ptc.vuforia.engine": "file:com.ptc.vuforia.engine-10.13.3.tgz",
     "com.unity.collab-proxy": "1.17.7",
     "com.unity.feature.development": "1.0.1",
