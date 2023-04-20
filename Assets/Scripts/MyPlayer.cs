@@ -12,12 +12,6 @@ public class MyPlayer : MonoBehaviour
     {
         Debug.Log("Loading video...");
         var videoPlayer = GetComponent<VideoPlayer>();
-        await videoPlayer.PlayYoutubeVideoAsync("https://www.youtube.com/watch?v=2tv8QIAM7t0");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        await videoPlayer.PlayYoutubeVideoAsync("https://www.youtube.com/watch?v=IBcwhaYP6Uk");
     }
 }

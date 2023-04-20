@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class InterectiveHandler : MonoBehaviour
 {
@@ -10,42 +11,61 @@ public class InterectiveHandler : MonoBehaviour
 
     private List<GameObject> expansions = new List<GameObject>();
 
-    public GameObject actionButton = null;
-
     public GameObject actionObject = null;
+    public GameObject manualyObject = null;
 
-    public GameObject objDescription = null;
+    public GameObject actionButton;
+    public GameObject objDescription;
+    public GameObject positionText;
+    public List<GameObject> objectsToHint = new List<GameObject>();
 
     void Start()
     {
         expansions = GameObject.FindGameObjectsWithTag(expansion).ToList();
 
-        actionButton.SetActive(false);
+        objectsToHint.Add(actionButton);
 
-        objDescription.SetActive(false);
+        objectsToHint.ForEach((it) =>
+        {
+            it.SetActive(false);
+        });
     }
 
     void Update()
     {
-        actionObject = null;
+        if (manualyObject != null)
+        {
+            actionObject = manualyObject;
+            positionText.GetComponent<TextMeshProUGUI>().text = actionObject.name;
+            return;
+        }
 
-        print(expansions.Count);
+        actionObject = null;
 
         expansions.ForEach(obj =>
         {
             if (Vector3.Distance(Camera.main.transform.position, obj.transform.position) < 0.5)
             {
                 actionObject = obj;
-                actionButton.SetActive(true);
                 return;
             }
         });
         
         if (actionObject == null)
         {
-            actionButton.SetActive(false);
+            objectsToHint.ForEach((it) =>
+            {
+                it.SetActive(false);
+            });
             return;
         }
+
+        objectsToHint.ForEach((it) =>
+        {
+            it.SetActive(true);
+        });
+
+        positionText.GetComponent<TextMeshProUGUI>().text = actionObject.name;
     }
 
     public void changeAction(int actionNumber)
@@ -65,7 +85,5 @@ public class InterectiveHandler : MonoBehaviour
             objDescription.SetActive(!objDescription.activeSelf);
             objDescription.GetComponent<TextMeshProUGUI>().text = exp.description;
         }
-
-        
     }
 }
