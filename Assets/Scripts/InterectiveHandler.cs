@@ -2,33 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class InterectiveHandler : MonoBehaviour
 {
     public const string expansion = "Expansion";
+
 
     private List<GameObject> expansions = new List<GameObject>();
 
     public GameObject actionObject = null;
     public GameObject manualyObject = null;
 
-    public GameObject actionButton;
-    public GameObject objDescription;
     public GameObject positionText;
-    public List<GameObject> objectsToHint = new List<GameObject>();
+
+
+    public GameObject descObj;
+    public TextMeshProUGUI descText;
+
+
+    public GameObject videoObj;
+    public GameObject expansionsObject;
+    public GameObject startMenuObject;
+    public GameObject backButton;
 
     void Start()
     {
         expansions = GameObject.FindGameObjectsWithTag(expansion).ToList();
 
-        objectsToHint.Add(actionButton);
+        descObj = GameObject.FindWithTag("Desc");
+        descText = GameObject.FindWithTag("DescText").GetComponent<TextMeshProUGUI>();
+        backButton = GameObject.FindWithTag("BackButton");
 
-        objectsToHint.ForEach((it) =>
-        {
-            it.SetActive(false);
-        });
+        descObj.SetActive(false);
     }
 
     void Update()
@@ -36,7 +45,7 @@ public class InterectiveHandler : MonoBehaviour
         if (manualyObject != null)
         {
             actionObject = manualyObject;
-            positionText.GetComponent<TextMeshProUGUI>().text = actionObject.name;
+            positionText.GetComponent<TextMeshProUGUI>().text = actionObject.GetComponent<Expansion>().expansionName;
             return;
         }
 
@@ -53,37 +62,55 @@ public class InterectiveHandler : MonoBehaviour
         
         if (actionObject == null)
         {
-            objectsToHint.ForEach((it) =>
-            {
-                it.SetActive(false);
-            });
             return;
         }
 
-        objectsToHint.ForEach((it) =>
-        {
-            it.SetActive(true);
-        });
+        var exp = actionObject.GetComponent<Expansion>();
 
-        positionText.GetComponent<TextMeshProUGUI>().text = actionObject.name;
+        positionText.GetComponent<TextMeshProUGUI>().text = exp.expansionName;
+        descText.text = exp.description;
     }
 
-    public void changeAction(int actionNumber)
+    public void SetManualyObject(GameObject obj)
     {
-        var exp = actionObject.GetComponent<Expansion>();
-        if (actionNumber == 0)
+        this.manualyObject = obj;
+        var exp = obj.GetComponent<Expansion>();
+
+        positionText.GetComponent<TextMeshProUGUI>().text = exp.expansionName;
+
+        descObj.SetActive(true);
+        descText.text = exp.description;
+    }
+
+    public void ChangeDescVisible()
+    {
+        descObj.SetActive(!descObj.activeSelf);
+    }
+
+    public void SetMode(int modeNumber)
+    {
+        startMenuObject.SetActive(false);
+        backButton.SetActive(true);
+
+        if (modeNumber == 0)
         {
-            exp.isRotate = false;
-            objDescription.SetActive(false);
+            videoObj.SetActive(false);
+            expansionsObject.SetActive(true);
         }
-        else if (actionNumber == 1)
+        if (modeNumber == 2)
         {
-            exp.isRotate = !exp.isRotate;
-        } 
-        else if (actionNumber == 2)
-        {
-            objDescription.SetActive(!objDescription.activeSelf);
-            objDescription.GetComponent<TextMeshProUGUI>().text = exp.description;
+            expansionsObject.SetActive(false);
+            videoObj.SetActive(true);
+            GameObject.FindGameObjectWithTag("VideoPlayer").GetComponent<VideoPlayer>().Stop();
         }
+    }
+
+    public void ShowMenu()
+    {
+        videoObj.SetActive(false);
+        expansionsObject.SetActive(false);
+        backButton.SetActive(false);
+
+        startMenuObject.SetActive(true);
     }
 }

@@ -12,6 +12,11 @@ public class MyPlayer : MonoBehaviour
     {
         Debug.Log("Loading video...");
         var videoPlayer = GetComponent<VideoPlayer>();
-        await videoPlayer.PlayYoutubeVideoAsync("https://www.youtube.com/watch?v=IBcwhaYP6Uk");
+
+/*        videoPlayer.url = "https://rutube.ru/video/6ec3939b588fdd9134288804a0458c1a/";
+        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
+        videoPlayer.EnableAudioTrack(0, true);
+        videoPlayer.Prepare();*/
+        await videoPlayer.PlayYoutubeVideoAsync("https://www.youtube.com/watch?v=nADTdV8wsXQ");
     }
 }

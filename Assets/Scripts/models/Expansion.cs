@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Expansion : MonoBehaviour
 {
     public string description;
+    public string expansionName = "Ёкспанат";
+
     public bool isRotate = false;
 
     public float rotationSpeed = 5f;
@@ -37,5 +40,9 @@ public class Expansion : MonoBehaviour
         }
 
         handler.manualyObject = this.gameObject;
+
+        handler.SetManualyObject(this.gameObject);
+
+        isRotate = !isRotate;
     }
 }

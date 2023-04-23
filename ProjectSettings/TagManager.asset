@@ -7,6 +7,9 @@ TagManager:
   - Actions
   - Desc
   - Expansion
+  - DescText
+  - VideoPlayer
+  - BackButton
   layers:
   - Default
   - TransparentFX
